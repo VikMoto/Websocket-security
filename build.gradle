@@ -1,0 +1,106 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.0'
+    id 'io.spring.dependency-management' version '1.1.2'
+    id("io.freefair.lombok") version "8.1.0"
+}
+
+group = 'com.store'
+version = '0.0.1'
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+ext {
+    set('springCloudVersion', "2022.0.3")
+}
+
+dependencies {
+    // Spring Dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework:spring-web'
+    implementation 'org.springframework:spring-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-config'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.1.1.RELEASE'
+
+    // Data
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.h2database:h2'
+
+    // Websockets
+    implementation 'org.springframework:spring-websocket'
+    implementation 'org.springframework:spring-messaging'
+    implementation 'org.springframework.security:spring-security-messaging'
+
+    // Logging
+    implementation 'org.slf4j:jcl-over-slf4j'
+    implementation 'ch.qos.logback:logback-classic'
+    implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+
+//    // Servlet
+//    implementation 'javax.servlet:javax.servlet-api'
+//    implementation 'javax.servlet.jsp.jstl:jstl-api'
+//    implementation 'javax.servlet.jsp:javax.servlet.jsp-api'
+//    implementation 'javax.servlet:jstl'
+
+    // Jackson Dependencies
+    implementation 'com.fasterxml.jackson.core:jackson-core'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // https://mvnrepository.com/artifact/org.webjars/webjars-locator-core
+    implementation 'org.webjars:webjars-locator-core'
+
+//	implementation 'org.flywaydb:flyway-core'
+
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+//    compileOnly 'org.springframework.cloud:spring-cloud-connectors-core'
+    compileOnly 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.1.1.RELEASE'
+//	compileOnly 'org.projectlombok:lombok'
+//    runtimeOnly 'org.postgresql:postgresql'
+//	annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+springBoot {
+    mainClass = 'com.chatico.Application'
+}
+
+bootJar {
+    archiveFileName = 'websocket-security.jar'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+
